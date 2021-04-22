@@ -14,13 +14,16 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_DIR = os.path.join(BASE_DIR, "static")
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+MEDIA_DIR = os.path.join(BASE_DIR, "media")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open("code.key") as f:
+with open(os.path.join(BASE_DIR, "backend/code.key"), "r") as f:
     SECRET_KEY = f.read()
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -55,7 +58,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,4 +121,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = "/media/"
+
+LOGIN_URL = "auth_login"
+
+REGISTRATION_OPEN = True
+REGISTRATION_AUTO_LOGIN = True
+
+

@@ -7,17 +7,26 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['username', 'email', 'password']
 
-class ResolutionSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Resolution
-        fields = ['submitter', 'title']
-
-class ClauseSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Clause
-        fields = ['res', 'command', 'text', 'preamb']
-
-class SubClauseSerializer(serializers.HyperlinkedModelSerializer):
+class SubClauseSerializer(serializers.ModelSerializer):
+    main_clause_id = serializers.PrimaryKeyRelatedField(queryset=Clause.objects.all(), source='parent_clause.id')
     class Meta:
         model = SubClause
-        fields = ["parent_clause", "text"]
+        fields = ["parent_clause", "text", "main_clause_id"]
+
+class ClauseSerializer(serializers.ModelSerializer):
+    sub_clauses = SubClauseSerializer(many=True, read_only=True)
+    resolution_id = serializers.PrimaryKeyRelatedField(queryset=Resolution.objects.all(), source='res.id')
+    class Meta:
+        model = Clause
+        fields = ['res', 'command', 'text', 'preamb', 'resolution_id', 'sub_clauses' ]
+
+
+class ResolutionSerializer(serializers.ModelSerializer):
+    clauses = ClauseSerializer(many=True, read_only=True)
+    class Meta:
+        model = Resolution
+        fields = ["id", "title", "submitter", "clauses"]
+
+
+
+

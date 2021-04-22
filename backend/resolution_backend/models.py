@@ -6,15 +6,18 @@ class Resolution(models.Model):
     submitter = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.title
+
 class Clause(models.Model):
-    res = models.ForeignKey(Resolution, on_delete=models.CASCADE)
+    res = models.ForeignKey(Resolution, on_delete=models.CASCADE, related_name='clauses')
     command = models.CharField(max_length=30)
-    text = models.CharField(max_length=2000)
+    text = models.TextField()
     preamb = models.BooleanField()
 
 class SubClause(models.Model):
-    parent_clause = models.ForeignKey(Clause, on_delete=models.CASCADE)
-    text = models.CharField(max_length=2000)
+    parent_clause = models.ForeignKey(Clause, on_delete=models.CASCADE, related_name='sub_clauses')
+    text = models.TextField()
 
 
 # Create your models here.

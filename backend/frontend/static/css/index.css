@@ -72,6 +72,20 @@ body {
     background-color: grey;
 }
 
+#title {
+    font-size: 3em;
+    font-family: sans-serif;
+    width: 50ch;
+}
+
+.add_button {
+    background-color: #003964;
+    color: white; 
+    padding: 0.2em;
+    font-family: "Times New Roman";
+
+}
+
 
 @keyframes button-onLoad {
     0% {opacity: 0}

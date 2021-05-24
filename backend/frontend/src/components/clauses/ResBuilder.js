@@ -1,16 +1,24 @@
 import React, { Component } from "react";
 import Title from "./Title"
+import PreambAdd from "./PreambAdd";
 
 class ResBuilder extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            "securityCouncil": false
+        };
+    }
+
     render() {
         return (<div class="res-builder">
-            <h2>BODY</h2>
             <Title />
             <h2>PREAMBLATORY CLAUSES</h2>
-            <h2>ADD A PREAMBLATORY CLAUSE</h2>
+            <button class="add_button">ADD A PREAMBLATORY CLAUSE</button>
+            <PreambAdd />
             <h2>OPERATIVE CLAUSE</h2>
-            <h2>ADD AN OPERATIVE CLAUSE</h2>
+            <button class="add_button">ADD AN OPERATIVE CLAUSE</button>
 
         </div>)
     }

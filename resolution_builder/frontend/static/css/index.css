@@ -49,6 +49,17 @@
     
 }
 
+li {
+    font-size: 1.2em;
+    font-family: "Times New Roman";
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+ul {
+    list-style-type: none;
+}
+
 
 .res-builder {
     display: flex;
@@ -74,7 +85,7 @@ body {
 
 #title {
     font-size: 3em;
-    font-family: sans-serif;
+    font-family: "Times New Roman";
     width: 50ch;
 }
 
@@ -84,6 +95,25 @@ body {
     padding: 0.2em;
     font-family: "Times New Roman";
 
+}
+
+.clause-select {
+    font-family: "Times New Roman";
+    padding: 3px;
+    font-size: 1.3em;
+    width: 90%;
+}
+
+.clause-body {
+    font-family: "Times New Roman";
+    font-size: 1.3em;
+    padding: 3px;
+    width: 90%;
+    
+}
+
+label {
+    font-size: 20px;
 }
 
 

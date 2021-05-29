@@ -27,7 +27,7 @@ class Title extends Component {
                     <input type="checkbox"></input>
                 </label>
             </form>
-        </div>)
+        </div>);
     }
 }
 

@@ -17,7 +17,7 @@ class Title extends Component {
     render() {
         return (<div>
             <form>
-                <h1 id="title">{this.state.title}</h1>
+                <h1 id="title" class="title">{this.state.title}</h1>
                 <label>
                     Title:
                     <input type="text" value={this.state.title} onChange={this.handleChange}></input>

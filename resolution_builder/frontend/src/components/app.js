@@ -10,13 +10,29 @@ export default class App extends Component {
         this.state = {
             buildRes: true
         }
+        this.createOnClick = this.createOnClick.bind(this);
+        this.browseOnClick = this.browseOnClick.bind(this);
+    }
+
+    createOnClick() {
+        this.setState({
+            buildRes: true
+        });
+    }
+
+    browseOnClick() {
+        this.setState({
+            buildRes: false
+        });
     }
 
     render() {
         return (
             <div class="grid">
-                <Header />
-                {this.state.buildRes ? <ResBuilder /> : <ResSelect />}
+                <Header create={this.createOnClick} browse={this.browseOnClick} />
+                <div class="res-body">
+                    {this.state.buildRes ? <ResBuilder /> : <ResSelect />}
+                </div>
             </div>
             )
     }

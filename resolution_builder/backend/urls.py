@@ -20,10 +20,10 @@ from rest_framework import routers
 from resolution_backend import views
 
 router = routers.DefaultRouter()
-router.register("/users", views.UserViewSet)
-router.register("/resolutions", views.ResolutionViewSet)
-router.register("/clauses", views.ClauseViewSet)
-router.register("/subclauses", views.SubClauseViewSet)
+router.register("users", views.UserViewSet)
+router.register("resolutions", views.ResolutionViewSet)
+router.register("clauses", views.ClauseViewSet)
+router.register("subclauses", views.SubClauseViewSet)
 
 
 urlpatterns = [

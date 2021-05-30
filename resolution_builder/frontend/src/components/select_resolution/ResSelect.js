@@ -23,12 +23,13 @@ class ResSelect extends Component {
     }
 
     render() {
-        const resolutions = this.state.resolutions.map(item => <ResItem title={item.title} />);
+        const resItems = this.state.resolutions.map(item => <ResItem title={item.title} />);
+        console.log(resItems);
         const loading = this.state.loading;
-        console.log(this.state.resolutions);
+        const resText = loading ? <h1>Loading</h1> : resItems;
         return (<div id="res-select">
             <h1 class="title">Pick a Resolution</h1>
-            {loading ? <h1>Loading</h1> : {resolutions}}
+            {resText}
         </div>)
     }
 }

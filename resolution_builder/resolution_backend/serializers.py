@@ -25,7 +25,7 @@ class ResolutionSerializer(serializers.ModelSerializer):
     clauses = ClauseSerializer(many=True, read_only=True)
     class Meta:
         model = Resolution
-        fields = ["id", "title", "submitter", "clauses"]
+        fields = ["id", "title", "submitter", "clauses", "country"]
 
 
 

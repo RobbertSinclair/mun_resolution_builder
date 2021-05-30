@@ -6,14 +6,31 @@ class OperClause extends Component {
         super(props);
         this.state = {
             command: props.command,
-            body: props.body
+            body: props.body,
+            hover: false
         }
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseLeave = this.mouseLeave.bind(this);
     }
 
+    mouseEnter() {
+        this.setState({
+            hover: true
+        });
+    }
+
+    mouseLeave() {
+        this.setState({
+            hover: false
+        });
+    }
+    
     render() {
 
-        return (<li>
+        return (<li onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
             <u><strong>{this.state.command}</strong></u> {this.state.body};
+            {this.state.hover && <button>DELETE</button>}
+            {this.state.hover && <button>Add Subclause</button>}
         </li>)
     }
 

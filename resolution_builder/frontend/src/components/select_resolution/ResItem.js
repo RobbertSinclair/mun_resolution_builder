@@ -7,9 +7,12 @@ class ResItem extends Component {
     }
 
     render() {
-        return (<div>
-            <h1>{this.props.title}</h1>
-        </div>);
+        const imageURL = "/static/images/flags/" + this.props.country + ".svg";
+        return (<tr>
+            <td><img class="country-flag" src={imageURL} /></td>
+            <td>{this.props.title}</td>
+        </tr>
+        );
     }
 }
 

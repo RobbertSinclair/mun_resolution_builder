@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Resolution(models.Model):
 
     submitter = models.ForeignKey(User, on_delete=models.CASCADE)
-    country = models.CharField(max_length=10)
+    country = models.CharField(max_length=10, default="un")
     title = models.CharField(max_length=100)
 
     def __str__(self):

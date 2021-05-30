@@ -1,4 +1,4 @@
-MUN Resolution Builder
+# MUN Resolution Builder
 
 This is the start of a project that I am creating where I create a full MUN management software.
 

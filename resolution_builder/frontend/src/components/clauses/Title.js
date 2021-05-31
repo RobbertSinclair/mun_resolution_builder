@@ -9,15 +9,10 @@ class Title extends Component {
             "country_code": "un",
             "countryTable": {}
         }
-        this.countryTable = require("../../../static/json/country_to_code.json");
         this.handleChange = this.handleChange.bind(this);
         this.changeCountry = this.changeCountry.bind(this);
         this.getCountryTable = this.getCountryTable.bind(this);
         this.getCountryTable();
-    }
-
-    async countryTable() {
-        return await getCountryTable();
     }
 
     handleChange(event) {

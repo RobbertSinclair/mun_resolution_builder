@@ -5,16 +5,32 @@ class PreambClause extends Component {
         super(props);
         this.state = {
             command: props.command,
-            body: props.body
+            body: props.body,
+            hover: false
         }
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseLeave = this.mouseLeave.bind(this);
+    }
+
+    mouseEnter() {
+        this.setState({
+            hover: true
+        });
+    }
+
+    mouseLeave() {
+        this.setState({
+            hover: false
+        });
     }
 
     render() {
+        const hover = this.state.hover;
         return(
-            <li>
+            <li onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
                 <i>{this.state.command}</i> {this.state.body}
+                {hover && <button>DELETE</button>}
             </li>)
-
     }
 }
 

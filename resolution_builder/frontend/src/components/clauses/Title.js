@@ -18,7 +18,7 @@ class Title extends Component {
     }
 
     changeCountry(event) {
-        let countryCode = this.countryTable[event.target.value];
+        let countryCode = this.countryTable[event.target.value.toLowerCase()];
         if(countryCode == null) {
             console.log("There is no country code");
         } else {

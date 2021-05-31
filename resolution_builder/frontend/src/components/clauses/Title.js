@@ -6,26 +6,42 @@ class Title extends Component {
         super();
         this.state = {
             "title": "THE RESOLUTION NAME",
-            "country_code": "un"
+            "country_code": "un",
+            "countryTable": {}
         }
         this.countryTable = require("../../../static/json/country_to_code.json");
         this.handleChange = this.handleChange.bind(this);
         this.changeCountry = this.changeCountry.bind(this);
+        this.getCountryTable = this.getCountryTable.bind(this);
+        this.getCountryTable();
+    }
+
+    async countryTable() {
+        return await getCountryTable();
     }
 
     handleChange(event) {
         this.setState({"title": event.target.value});
     }
 
+    getCountryTable() {
+        fetch("/static/json/country_to_code.json")
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    this.setState({countryTable: data});
+                }
+            )
+    }
+
     changeCountry(event) {
-        let countryCode = this.countryTable[event.target.value.toLowerCase()];
-        if(countryCode == null) {
-            console.log("There is no country code");
+        let input = event.target.value.toLowerCase();
+        let countryCode = this.state.countryTable[input];
+        if (countryCode == null) {
+            console.log("That is not a valid country");
         } else {
             this.setState({country_code: countryCode});
         }
-        
-
     }
 
     render() {

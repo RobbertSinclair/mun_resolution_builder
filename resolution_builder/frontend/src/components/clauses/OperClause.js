@@ -17,6 +17,7 @@ class OperClause extends Component {
         this.mouseLeave = this.mouseLeave.bind(this);
         this.showSubClauseForm = this.showSubClauseForm.bind(this);
         this.removeSubClauseForm = this.removeSubClauseForm.bind(this);
+        this.addSubClause = this.addSubClause.bind(this);
     }
 
     mouseEnter() {
@@ -42,15 +43,27 @@ class OperClause extends Component {
             addSubClause: false
         });
     }
+
+    addSubClause() {
+        let oldSubClauses = this.state.subClauses;
+        let newSubClause = document.getElementById("addSubClause").value;
+        oldSubClauses.push(newSubClause);
+        this.setState({
+            subClauses: oldSubClauses,
+            addSubClause: false
+        });
+    }
+
     render() {
         const showSubClauseForm = this.state.addSubClause ? <button onClick={this.removeSubClauseForm}>Cancel Subform</button> : <button onClick={this.showSubClauseForm}>Add Subclause</button>;
-        const subClauses = this.state.subClauses.map(item => <SubClause text={item.text} />);
+        const subClauses = this.state.subClauses.map(item => <SubClause text={item} />);
         return (<li onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
             <u><strong>{this.state.command}</strong></u> {this.state.body};
             {this.state.hover && <button>DELETE</button>}
+            {this.state.hover && <button>EDIT</button>}
             {this.state.hover && showSubClauseForm}
-            {this.state.addSubClause && <SubClauseAdd />}
-            <ol class="subClauses">
+            {this.state.addSubClause && <SubClauseAdd submitEvent={this.addSubClause} />}
+            <ol class="subClauses" type="a">
                 {subClauses}
             </ol>
         </li>)

@@ -53,7 +53,7 @@ class Title extends Component {
                     <label>
                         Country:
                         <input type="text" onChange={this.changeCountry}></input>
-                    </label>
+                    </label><br></br>
                     <label>
                         Security Council
                         <input type="checkbox"></input>

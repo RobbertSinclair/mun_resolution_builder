@@ -12,11 +12,11 @@ class SubClauseAdd extends Component {
             <fieldset>
                 <legend>Add a SubClause</legend>
                 <label>
-                    Text:
-                    <textarea></textarea>
+                    Text:<br></br>
+                    <textarea class="clause-body" id="addSubClause"></textarea>
                 </label>
                 <br></br>
-                <button class="submit-button" type="button">Submit</button> 
+                <button class="submit-button" type="button" onClick={this.props.submitEvent}>Submit</button> 
             </fieldset>
         </form>);
     }

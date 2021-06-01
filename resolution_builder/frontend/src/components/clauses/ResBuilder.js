@@ -19,6 +19,7 @@ class ResBuilder extends Component {
         this.operClick = this.operClick.bind(this);
         this.addPreambClause = this.addPreambClause.bind(this);
         this.addOperClause = this.addOperClause.bind(this);
+        this.toggleSecurityCouncil = this.toggleSecurityCouncil.bind(this);
     }
 
     preambClick() {
@@ -53,23 +54,27 @@ class ResBuilder extends Component {
         });
     }
 
+    toggleSecurityCouncil() {
+        this.setState({securityCouncil: !this.state.securityCouncil});
+    }
+
     render() {
         const addPreamb = this.state.addPreamb;
         const addOper = this.state.addOper;
         const preambClauses = this.state.preambClauses.map(item => <PreambClause command={item.command} body={item.body} />);
         const operClauses = this.state.operClauses.map(item => <OperClause command={item.command} body={item.body} />);
         return (<div class="res-builder">
-            <Title />
+            <Title checkMethod={this.toggleSecurityCouncil}/>
             <h2>PREAMBLATORY CLAUSES</h2>
             <ul>
                 {preambClauses}
             </ul>
-            {addPreamb ? <ClauseAdd preamb={true} clickMethod={this.addPreambClause}  /> : <button onClick={this.preambClick} class="add_button">ADD A PREAMBLATORY CLAUSE</button>}
+            {addPreamb ? <ClauseAdd preamb={true} clickMethod={this.addPreambClause} securityCouncil={this.state.securityCouncil} /> : <button onClick={this.preambClick} class="add_button">ADD A PREAMBLATORY CLAUSE</button>}
             <h2>OPERATIVE CLAUSES</h2>
             <ol>
                 {operClauses}
             </ol>
-            {addOper ? <ClauseAdd preamb={false} clickMethod={this.addOperClause} /> : <button onClick={this.operClick} class="add_button">ADD AN OPERATIVE CLAUSE</button>}
+            {addOper ? <ClauseAdd preamb={false} clickMethod={this.addOperClause} securityCouncil={this.state.securityCouncil} /> : <button onClick={this.operClick} class="add_button">ADD AN OPERATIVE CLAUSE</button>}
         </div>);
     }
 }

@@ -56,7 +56,7 @@ class Title extends Component {
                     </label><br></br>
                     <label>
                         Security Council
-                        <input type="checkbox"></input>
+                        <input type="checkbox" onChange={this.props.checkMethod}></input>
                     </label>
                 </form>
         </div>);

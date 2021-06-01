@@ -4,7 +4,8 @@ class ClauseAdd extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            preamb: props.preamb
+            preamb: props.preamb,
+            securityCouncil: props.securityCouncil
         };
         this.clauses = require("../../../static/json/clause.json");
         this.getClauseList = this.getClauseList.bind(this);
@@ -17,6 +18,10 @@ class ClauseAdd extends Component {
             clauseList = this.clauses.preamb.map(item => <option value={item}>{item}</option>);
         } else {
             clauseList = this.clauses.operative.map(item => <option value={item}>{item}</option>);
+            if (this.state.securityCouncil) {
+                clauseList.push("Demands");
+                clauseList.sort();
+            }
         }
         return clauseList;
     }

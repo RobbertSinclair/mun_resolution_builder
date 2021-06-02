@@ -21,6 +21,7 @@ class ResBuilder extends Component {
         this.addOperClause = this.addOperClause.bind(this);
         this.toggleSecurityCouncil = this.toggleSecurityCouncil.bind(this);
         this.deleteOperClause = this.deleteOperClause.bind(this);
+        this.deletePreambClause = this.deletePreambClause.bind(this);
     }
 
     preambClick() {

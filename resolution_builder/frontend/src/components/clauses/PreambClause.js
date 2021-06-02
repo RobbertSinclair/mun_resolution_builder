@@ -4,6 +4,7 @@ class PreambClause extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
             command: props.command,
             body: props.body,
             hover: false
@@ -26,10 +27,11 @@ class PreambClause extends Component {
 
     render() {
         const hover = this.state.hover;
+        const deleteButton = <button onClick={() => this.props.deleteMethod(this.state.id)}>DELETE</button>;
         return(
             <li onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
                 <i>{this.state.command}</i> {this.state.body}
-                {hover && <button>DELETE</button>}
+                {hover && deleteButton}
             </li>)
     }
 }

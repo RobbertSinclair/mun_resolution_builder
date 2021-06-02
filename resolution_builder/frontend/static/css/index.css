@@ -119,7 +119,8 @@ label {
 }
 
 .country-flag {
-    height: 125px;
+    height: 6.25vw;
+    width: 12vw;
     object-fit: cover;
     box-shadow: 3px 3px 5px grey;
 }

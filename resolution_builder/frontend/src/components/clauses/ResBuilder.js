@@ -20,6 +20,7 @@ class ResBuilder extends Component {
         this.addPreambClause = this.addPreambClause.bind(this);
         this.addOperClause = this.addOperClause.bind(this);
         this.toggleSecurityCouncil = this.toggleSecurityCouncil.bind(this);
+        this.deleteOperClause = this.deleteOperClause.bind(this);
     }
 
     preambClick() {
@@ -58,11 +59,27 @@ class ResBuilder extends Component {
         this.setState({securityCouncil: !this.state.securityCouncil});
     }
 
+    deleteOperClause(index) {
+        let operClauses = this.state.operClauses;
+        operClauses.splice(index, 1);
+        this.setState({
+            operClauses: operClauses
+        });
+    }
+
+    deletePreambClause(index) {
+        let preambClauses = this.state.preambClauses;
+        preambClauses.splice(index, 1);
+        this.setState({
+            preambClauses: preambClauses
+        });
+    }
+
     render() {
         const addPreamb = this.state.addPreamb;
         const addOper = this.state.addOper;
-        const preambClauses = this.state.preambClauses.map(item => <PreambClause command={item.command} body={item.body} />);
-        const operClauses = this.state.operClauses.map(item => <OperClause command={item.command} body={item.body} />);
+        const preambClauses = this.state.preambClauses.map((item, index) => <PreambClause id={index} command={item.command} body={item.body} deleteMethod={this.deletePreambClause} />);
+        const operClauses = this.state.operClauses.map((item, index) => <OperClause id={index} command={item.command} body={item.body} deleteMethod={this.deleteOperClause} />);
         return (<div class="res-builder">
             <Title checkMethod={this.toggleSecurityCouncil}/>
             <h2>PREAMBLATORY CLAUSES</h2>

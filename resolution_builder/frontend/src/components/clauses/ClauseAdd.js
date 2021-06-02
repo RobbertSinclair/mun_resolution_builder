@@ -13,15 +13,23 @@ class ClauseAdd extends Component {
     }
 
     getClauseList() {
+        console.log(this.state);
         let clauseList;
         if (this.state.preamb) {
             clauseList = this.clauses.preamb.map(item => <option value={item}>{item}</option>);
         } else {
-            clauseList = this.clauses.operative.map(item => <option value={item}>{item}</option>);
-            if (this.state.securityCouncil) {
-                clauseList.push("Demands");
-                clauseList.sort();
+            let operClauses = this.clauses.operative;
+            if (this.state.securityCouncil && !operClauses.includes("Demands")) {
+                operClauses.push("Demands");
+                operClauses.sort();
+            } else if (!this.state.securityCouncil) {
+                let i = 0;
+                operClauses = operClauses.filter(function(value, index, arr) {
+                    return value != "Demands";
+                });
             }
+            console.log(operClauses);
+            clauseList = operClauses.map(item => <option value={item}>{item}</option>);
         }
         return clauseList;
     }
@@ -31,7 +39,8 @@ class ClauseAdd extends Component {
     }
 
     render() {
-        const clauseList = this.getClauseList(); 
+        const clauseList = this.getClauseList();
+        console.log(clauseList);
         return (<form>
             <fieldset>
             <legend>{this.state.preamb ? "Add a Preamblatory clause" : "Add an Operative Clause"}</legend>

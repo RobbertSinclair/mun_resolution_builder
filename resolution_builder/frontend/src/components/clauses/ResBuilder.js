@@ -13,6 +13,7 @@ class ResBuilder extends Component {
             "addPreamb": false,
             "addOper": false,
             "id": this.props.id,
+            "country": "un",
             "preambClauses": [],
             "operClauses": []
         };
@@ -24,8 +25,10 @@ class ResBuilder extends Component {
         this.deleteOperClause = this.deleteOperClause.bind(this);
         this.deletePreambClause = this.deletePreambClause.bind(this);
         this.getClauses = this.getClauses.bind(this);
+        this.getResolutionData = this.getResolutionData.bind(this);
         if (this.state.id != null) {
-            this.getClauses();
+            console.log(this.state.id);
+            this.getResolutionData();
         }
     }
 
@@ -81,8 +84,34 @@ class ResBuilder extends Component {
         });
     }
 
-    getClauses() {
+    getClauses(clauseList) {
+        let operClauses = []
+        let preambClauses = []
+        for(let i = 0; i < clauseList.length; i++) {
+            if (clauseList[i].preamb) {
+                preambClauses.push(clauseList[i]);
+            } else {
+                operClauses.push(clauseList[i]);
+            }
+        }
+        return {oper: operClauses, preamb: preambClauses};
+    }
 
+    getResolutionData() {
+        const id = this.state.id;
+        fetch("/api/get_resolutions?id=" + id)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                console.log(data.country);
+                const clauses = this.getClauses(data.clauses);
+                console.log(clauses);
+                this.setState({
+                    country: data.country,
+                    preambClauses: clauses.preamb,
+                    operClauses: clauses.oper
+                })
+            });
     }
 
     render() {
@@ -91,7 +120,7 @@ class ResBuilder extends Component {
         const preambClauses = this.state.preambClauses.map((item, index) => <PreambClause id={index} command={item.command} body={item.body} deleteMethod={this.deletePreambClause} />);
         const operClauses = this.state.operClauses.map((item, index) => <OperClause id={index} command={item.command} body={item.body} deleteMethod={this.deleteOperClause} />);
         return (<div class="res-builder">
-            <Title checkMethod={this.toggleSecurityCouncil}/>
+            <Title country={this.state.country} checkMethod={this.toggleSecurityCouncil}/>
             <h2>PREAMBLATORY CLAUSES</h2>
             <ul>
                 {preambClauses}

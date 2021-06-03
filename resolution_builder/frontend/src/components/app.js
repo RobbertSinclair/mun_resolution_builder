@@ -31,7 +31,7 @@ export default class App extends Component {
             <div class="grid">
                 <Header create={this.createOnClick} browse={this.browseOnClick} />
                 <div class="res-body">
-                    {this.state.buildRes ? <ResBuilder /> : <ResSelect />}
+                    {this.state.buildRes ? <ResBuilder id={1} /> : <ResSelect />}
                 </div>
             </div>
             )

@@ -2,13 +2,14 @@ import React, { Component } from "react";
 
 class Title extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             "title": "THE RESOLUTION NAME",
-            "country_code": "un",
+            "country_code": props.country,
             "countryTable": {}
         }
+        console.log(this.state);
         this.handleChange = this.handleChange.bind(this);
         this.changeCountry = this.changeCountry.bind(this);
         this.getCountryTable = this.getCountryTable.bind(this);

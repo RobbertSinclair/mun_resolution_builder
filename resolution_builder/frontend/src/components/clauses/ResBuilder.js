@@ -6,12 +6,13 @@ import PreambClause from "./PreambClause";
 
 class ResBuilder extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             "securityCouncil": false,
             "addPreamb": false,
             "addOper": false,
+            "id": this.props.id,
             "preambClauses": [],
             "operClauses": []
         };
@@ -22,6 +23,10 @@ class ResBuilder extends Component {
         this.toggleSecurityCouncil = this.toggleSecurityCouncil.bind(this);
         this.deleteOperClause = this.deleteOperClause.bind(this);
         this.deletePreambClause = this.deletePreambClause.bind(this);
+        this.getClauses = this.getClauses.bind(this);
+        if (this.state.id != null) {
+            this.getClauses();
+        }
     }
 
     preambClick() {
@@ -74,6 +79,10 @@ class ResBuilder extends Component {
         this.setState({
             preambClauses: preambClauses
         });
+    }
+
+    getClauses() {
+
     }
 
     render() {

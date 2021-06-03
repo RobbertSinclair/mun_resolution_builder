@@ -13,12 +13,12 @@ class Resolution(models.Model):
 class Clause(models.Model):
     res = models.ForeignKey(Resolution, on_delete=models.CASCADE, related_name='clauses')
     command = models.CharField(max_length=30)
-    text = models.TextField()
+    body = models.TextField()
     preamb = models.BooleanField()
 
 class SubClause(models.Model):
     parent_clause = models.ForeignKey(Clause, on_delete=models.CASCADE, related_name='sub_clauses')
-    text = models.TextField()
+    body = models.TextField()
 
 
 # Create your models here.

@@ -15,7 +15,9 @@ class ResBuilder extends Component {
             "id": this.props.id,
             "country": "un",
             "preambClauses": [],
-            "operClauses": []
+            "operClauses": [],
+            "title": "",
+            "countryTable": {}
         };
         this.preambClick = this.preambClick.bind(this);
         this.operClick = this.operClick.bind(this);
@@ -26,10 +28,23 @@ class ResBuilder extends Component {
         this.deletePreambClause = this.deletePreambClause.bind(this);
         this.getClauses = this.getClauses.bind(this);
         this.getResolutionData = this.getResolutionData.bind(this);
+        this.changeTitle = this.changeTitle.bind(this);
+        this.changeCountry = this.changeCountry.bind(this);
         if (this.state.id != null) {
             console.log(this.state.id);
             this.getResolutionData();
         }
+        this.getCountryTable();
+    }
+
+    getCountryTable() {
+        fetch("/static/json/country_to_code.json")
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    this.setState({countryTable: data});
+                }
+            )
     }
 
     preambClick() {
@@ -84,9 +99,23 @@ class ResBuilder extends Component {
         });
     }
 
+    changeTitle(event) {
+        this.setState({"title": event.target.value});
+    }
+
+    changeCountry(event) {
+        let input = event.target.value.toLowerCase();
+        let countryCode = this.state.countryTable[input];
+        if (countryCode == null) {
+            console.log("That is not a valid country");
+        } else {
+            this.setState({country_code: countryCode});
+        }
+    }
+
     getClauses(clauseList) {
-        let operClauses = []
-        let preambClauses = []
+        let operClauses = [];
+        let preambClauses = [];
         for(let i = 0; i < clauseList.length; i++) {
             if (clauseList[i].preamb) {
                 preambClauses.push(clauseList[i]);
@@ -109,18 +138,22 @@ class ResBuilder extends Component {
                 this.setState({
                     country: data.country,
                     preambClauses: clauses.preamb,
-                    operClauses: clauses.oper
+                    operClauses: clauses.oper,
+                    title: data.title
                 })
             });
     }
 
     render() {
+        let flagURL = "/static/images/flags/" + this.state.country + ".svg";
         const addPreamb = this.state.addPreamb;
         const addOper = this.state.addOper;
         const preambClauses = this.state.preambClauses.map((item, index) => <PreambClause id={index} command={item.command} body={item.body} deleteMethod={this.deletePreambClause} />);
         const operClauses = this.state.operClauses.map((item, index) => <OperClause id={index} command={item.command} body={item.body} deleteMethod={this.deleteOperClause} />);
         return (<div class="res-builder">
-            <Title country={this.state.country} checkMethod={this.toggleSecurityCouncil}/>
+            <h1 id="title" class="title">{this.state.title}</h1>
+            <img class="country-flag" src={flagURL} />
+            <Title country={this.state.country} title={this.state.title} checkMethod={this.toggleSecurityCouncil} titleChange={this.changeTitle} countryMethod={this.changeCountry} />
             <h2>PREAMBLATORY CLAUSES</h2>
             <ul>
                 {preambClauses}

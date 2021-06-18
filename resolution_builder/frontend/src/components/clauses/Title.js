@@ -38,7 +38,7 @@ class Title extends Component {
                     
                     <label>
                         Title:
-                        <input type="text" value={this.state.title} onChange={this.props.titleChange}></input>
+                        <input type="text" onChange={this.props.titleChange}></input>
                     </label><br></br>
                     <label>
                         Country:

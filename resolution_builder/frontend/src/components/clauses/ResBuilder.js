@@ -30,6 +30,7 @@ class ResBuilder extends Component {
         this.getResolutionData = this.getResolutionData.bind(this);
         this.changeTitle = this.changeTitle.bind(this);
         this.changeCountry = this.changeCountry.bind(this);
+        this.saveResolution = this.saveResolution.bind(this);
         if (this.state.id != null) {
             console.log(this.state.id);
             this.getResolutionData();
@@ -144,6 +145,25 @@ class ResBuilder extends Component {
             });
     }
 
+    saveResolution() {
+        let clauses = []
+        
+        const postData = {
+            title: this.state.title,
+            country: this.state.country,
+            preambClauses: this.state.preambClauses,
+            operClauses: this.state.operClauses
+            
+        }
+        
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(postData)
+        }
+
+    }
+
     render() {
         let flagURL = "/static/images/flags/" + this.state.country + ".svg";
         const addPreamb = this.state.addPreamb;
@@ -164,6 +184,7 @@ class ResBuilder extends Component {
                 {operClauses}
             </ol>
             {addOper ? <ClauseAdd preamb={false} clickMethod={this.addOperClause} securityCouncil={this.state.securityCouncil} /> : <button onClick={this.operClick} class="add_button">ADD AN OPERATIVE CLAUSE</button>}
+            <button class="add_button">SAVE RESOLUTION</button>
         </div>);
     }
 }

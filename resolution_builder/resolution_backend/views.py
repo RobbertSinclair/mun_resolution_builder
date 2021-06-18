@@ -41,3 +41,9 @@ class SubClauseViewSet(viewsets.ModelViewSet):
     serializer_class = SubClauseSerializer
 
 # Create your views here.
+
+def saveResolution(request):
+
+    if request.method == "POST":
+        
+

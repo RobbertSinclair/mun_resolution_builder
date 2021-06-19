@@ -16,6 +16,12 @@ class Clause(models.Model):
     body = models.TextField()
     preamb = models.BooleanField()
 
+    def __str__(self):
+        if self.preamb:
+            return f"PREAMB CLAUSE with Command: {command}"
+        else:
+            return f"OPER CLAUSE with command: {command}"
+
 class SubClause(models.Model):
     parent_clause = models.ForeignKey(Clause, on_delete=models.CASCADE, related_name='sub_clauses')
     body = models.TextField()

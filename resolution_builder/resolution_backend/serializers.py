@@ -27,6 +27,11 @@ class ResolutionSerializer(serializers.ModelSerializer):
         model = Resolution
         fields = ["id", "title", "submitter", "clauses", "country"]
 
+class CreateResolutionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resolution
+        fields = ["title", "country", "clauses"]
+
 
 
 

@@ -146,22 +146,40 @@ class ResBuilder extends Component {
     }
 
     saveResolution() {
-        let clauses = []
+        console.log(this.state.operClauses);
+        console.log(this.state.preambClauses);
+        let clauses = [];
+        let clause;
+        for (clause in this.state.preambClauses) {
+            //clause["preamb"] = true;
+            console.log(clause);
+            //clauses.add(clause);
+        }
         
+        for (clause in this.state.operClauses) {
+            //clause["preamb"] = false
+            console.log(clause);
+            //clauses.add(clause);
+        }
+
         const postData = {
             title: this.state.title,
             country: this.state.country,
             preambClauses: this.state.preambClauses,
             operClauses: this.state.operClauses
             
-        }
+        };
         
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify(postData)
-        }
+        };
 
+        /*fetch("/api/create-res", requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data));
+        */
     }
 
     render() {
@@ -184,7 +202,9 @@ class ResBuilder extends Component {
                 {operClauses}
             </ol>
             {addOper ? <ClauseAdd preamb={false} clickMethod={this.addOperClause} securityCouncil={this.state.securityCouncil} /> : <button onClick={this.operClick} class="add_button">ADD AN OPERATIVE CLAUSE</button>}
-            <button class="add_button">SAVE RESOLUTION</button>
+            <br></br>
+            <br></br>
+            <button class="add_button" onClick={this.saveResolution}>SAVE RESOLUTION</button>
         </div>);
     }
 }

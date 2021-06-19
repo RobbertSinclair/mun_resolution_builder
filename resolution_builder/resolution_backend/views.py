@@ -5,7 +5,7 @@ from rest_framework import viewsets, permissions, status, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from resolution_backend.serializers import UserSerializer, ResolutionSerializer, ClauseSerializer, SubClauseSerializer
+from resolution_backend.serializers import UserSerializer, ResolutionSerializer, ClauseSerializer, SubClauseSerializer, CreateResolutionSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
@@ -31,6 +31,7 @@ class GetResolution(APIView):
         return Response({"Bad Request": "Id parameter not found in request"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 class ClauseViewSet(viewsets.ModelViewSet):
     queryset = Clause.objects.all()
     serializer_class = ClauseSerializer
@@ -40,10 +41,29 @@ class SubClauseViewSet(viewsets.ModelViewSet):
     queryset = SubClause.objects.all()
     serializer_class = SubClauseSerializer
 
-# Create your views here.
+class CreateResolutionView(APIView):
+    serializer_class = CreateResolutionSerializer
 
-def saveResolution(request):
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            title = serializer.data.get("title")
+            clauses = serializer.data.get("clauses")
+            country = serializer.data.get("country")
+            if request.user.is_authenticated:
+                res = Resolution.objects.create(title=title, country=country, user=request.user)
+                res.save()
+                for clause in clauses:
+                    new_clause = Clause.objects.create(command=clause["command"], body=clause["body"], preamb=clause["preamb"], res=res)
+                    new_clause.save()
 
-    if request.method == "POST":
-        
+                return Response(ResolutionSerializer(res).data, status=status.HTTP_201_CREATED)
+                    
+
+
+
+
+            
 

@@ -146,40 +146,44 @@ class ResBuilder extends Component {
     }
 
     saveResolution() {
-        console.log(this.state.operClauses);
-        console.log(this.state.preambClauses);
         let clauses = [];
         let clause;
+        let theClause;
+        let csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+        console.log(csrf_token);
         for (clause in this.state.preambClauses) {
-            //clause["preamb"] = true;
-            console.log(clause);
-            //clauses.add(clause);
+            theClause = this.state.preambClauses[clause];
+            theClause["preamb"] = true;
+            clauses.push(theClause);
         }
         
         for (clause in this.state.operClauses) {
-            //clause["preamb"] = false
-            console.log(clause);
-            //clauses.add(clause);
+            theClause = this.state.operClauses[clause]
+            theClause["preamb"] = false
+            clauses.push(theClause);
         }
 
         const postData = {
             title: this.state.title,
             country: this.state.country,
-            preambClauses: this.state.preambClauses,
-            operClauses: this.state.operClauses
-            
+            clauses: clauses
         };
+
+        console.log(postData);
         
         const requestOptions = {
             method: "POST",
-            headers: { "Content-Type": "application/json"},
+            headers: { 
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrf_token
+            },
             body: JSON.stringify(postData)
         };
 
-        /*fetch("/api/create-res", requestOptions)
+        fetch("/api/create-res", requestOptions)
             .then(response => response.json())
             .then(data => console.log(data));
-        */
+        
     }
 
     render() {

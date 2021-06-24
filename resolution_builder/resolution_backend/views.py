@@ -60,6 +60,8 @@ class CreateResolutionView(APIView):
                     new_clause.save()
 
                 return Response(ResolutionSerializer(res).data, status=status.HTTP_201_CREATED)
+
+        return Response({"Bad Request": "An unkown error has occured"}, status=status.HTTP_400_BAD_REQUEST)
                     
 
 

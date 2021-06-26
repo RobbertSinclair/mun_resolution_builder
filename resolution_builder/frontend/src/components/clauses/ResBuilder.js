@@ -17,8 +17,9 @@ class ResBuilder extends Component {
             "preambClauses": [],
             "operClauses": [],
             "title": "",
-            "countryTable": {}
+            "countryTable": require("/static/json/country_to_code.json")
         };
+        console.log(this.state);
         this.preambClick = this.preambClick.bind(this);
         this.operClick = this.operClick.bind(this);
         this.addPreambClause = this.addPreambClause.bind(this);
@@ -35,7 +36,7 @@ class ResBuilder extends Component {
             console.log(this.state.id);
             this.getResolutionData();
         }
-        this.getCountryTable();
+        //this.getCountryTable();
     }
 
     getCountryTable() {
@@ -43,7 +44,9 @@ class ResBuilder extends Component {
             .then(res => res.json())
             .then(
                 (data) => {
+                    console.log(data);
                     this.setState({countryTable: data});
+                    console.log(this.state);
                 }
             )
     }
@@ -107,10 +110,11 @@ class ResBuilder extends Component {
     changeCountry(event) {
         let input = event.target.value.toLowerCase();
         let countryCode = this.state.countryTable[input];
+        console.log(input);
         if (countryCode == null) {
             console.log("That is not a valid country");
         } else {
-            this.setState({country_code: countryCode});
+            this.setState({country: countryCode});
         }
     }
 
